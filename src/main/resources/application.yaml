@@ -1,0 +1,21 @@
+spring.datasource.url: jdbc:h2:file:./camunda-h2-database
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+camunda.bpm.admin-user:
+  id: demo
+  password: demo
+camunda:
+  bpm:
+    generic-properties:
+      properties:
+        historyTimeToLive: 5 #keep data for 5 days in DB (process, variables, ...)
+    job-execution:
+      enabled: true  # Enable Camunda job executor (default is true)
+      core-pool-size: 1  # Minimum number of worker threads
+      max-pool-size: 1  # Maximum number of worker threads
+      queue-size: 1  # Queue size for pending tasks
+      # thread will scale up when queue is full
+    auto-deployment-enabled: true

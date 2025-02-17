@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0fr9mxs" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.30.0">
+  <bpmn:process id="camunda-app-process-2" name="Demo" isExecutable="true" camunda:historyTimeToLive="180">
+    <bpmn:extensionElements />
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:extensionElements />
+      <bpmn:outgoing>SequenceFlow_1fp17al</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1fp17al" sourceRef="StartEvent_1" targetRef="say-hello" />
+    <bpmn:sequenceFlow id="Flow_08p61mh" sourceRef="say-hello" targetRef="say-hello-2" />
+    <bpmn:sequenceFlow id="Flow_1swcvfk" sourceRef="say-hello-2" targetRef="say-hello-3" />
+    <bpmn:serviceTask id="say-hello-2" name="Say hello to demo 2" camunda:asyncBefore="true" camunda:class="com.ncst.delegates.HelloWorld">
+      <bpmn:incoming>Flow_08p61mh</bpmn:incoming>
+      <bpmn:outgoing>Flow_1swcvfk</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="say-hello" name="Say hello to&#10;demo 1" camunda:asyncBefore="true" camunda:class="com.ncst.delegates.HelloWorld">
+      <bpmn:extensionElements>
+        <camunda:executionListener class="com.ncst.listener.MDCBusinessKeyListener" event="start" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1fp17al</bpmn:incoming>
+      <bpmn:outgoing>Flow_08p61mh</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="say-hello-3" name="Say hello to demo 3" camunda:asyncBefore="true" camunda:class="com.ncst.delegates.HelloWorld">
+      <bpmn:incoming>Flow_1swcvfk</bpmn:incoming>
+      <bpmn:outgoing>Flow_159d4cb</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_159d4cb" sourceRef="say-hello-3" targetRef="Event_1x7tq1x" />
+    <bpmn:endEvent id="Event_1x7tq1x">
+      <bpmn:incoming>Flow_159d4cb</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="camunda-app-process-2">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_03bwt2f_di" bpmnElement="say-hello-2">
+        <dc:Bounds x="440" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0hfg6zq_di" bpmnElement="say-hello">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0s71t05_di" bpmnElement="say-hello-3">
+        <dc:Bounds x="610" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1x7tq1x_di" bpmnElement="Event_1x7tq1x">
+        <dc:Bounds x="812" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1fp17al_di" bpmnElement="SequenceFlow_1fp17al">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08p61mh_di" bpmnElement="Flow_08p61mh">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="440" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1swcvfk_di" bpmnElement="Flow_1swcvfk">
+        <di:waypoint x="540" y="117" />
+        <di:waypoint x="610" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_159d4cb_di" bpmnElement="Flow_159d4cb">
+        <di:waypoint x="710" y="117" />
+        <di:waypoint x="812" y="117" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
